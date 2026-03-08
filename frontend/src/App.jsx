@@ -36,14 +36,14 @@ export default function App() {
       console.error("ユーザー追加エラー:", error);
     }
   };
-
+  
   useEffect(() => {
     fetchUsers();
   }, []);
 
   return (
     <div style={{ padding: "24px", fontFamily: "sans-serif" }}>
-      <h1>FastAPI + React + MySQL サンプル</h1>
+      <h1>データベース接続確認</h1>
 
       <div style={{ marginBottom: "16px" }}>
         <input
@@ -58,7 +58,7 @@ export default function App() {
         </button>
       </div>
 
-      <h2>ユーザー一覧</h2>
+      <h2>ユーザー 一覧</h2>
       <ul>
         {users.map((user) => (
           <li key={user.id}>
