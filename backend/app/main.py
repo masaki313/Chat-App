@@ -2,9 +2,9 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from .database import SessionLocal, engine, Base
-from .models import User
-from .schemas import UserCreate, UserResponse
+from .db.database import SessionLocal, engine, Base
+from .models.models import User
+from .schemas.schemas import UserCreate, UserResponse
 
 app = FastAPI()
 
