@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import api from "./plugins/axios";
 
 export default function App() {
   const [users, setUsers] = useState([]);
@@ -6,9 +7,8 @@ export default function App() {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch("http://localhost:8080/users");
-      const data = await res.json();
-      setUsers(data);
+      const res = await api.get("/users");
+      setUsers(res.data);
     } catch (error) {
       console.error("ユーザー取得エラー:", error);
     }
@@ -18,17 +18,9 @@ export default function App() {
     if (!name.trim()) return;
 
     try {
-      const res = await fetch("http://localhost:8080/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ name })
+      await api.post("/users", {
+        name: name
       });
-
-      if (!res.ok) {
-        throw new Error("ユーザー追加に失敗しました");
-      }
 
       setName("");
       fetchUsers();
@@ -36,7 +28,7 @@ export default function App() {
       console.error("ユーザー追加エラー:", error);
     }
   };
-  
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -58,7 +50,7 @@ export default function App() {
         </button>
       </div>
 
-      <h2>ユーザー 一覧</h2>
+      <h2>ユーザー一覧</h2>
       <ul>
         {users.map((user) => (
           <li key={user.id}>
